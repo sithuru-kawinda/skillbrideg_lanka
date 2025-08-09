@@ -1,0 +1,257 @@
+* {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #f8f9fa;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      
+    }
+
+    .registration-container {
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .registration-card {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .registration-header {
+      display: flex;
+      align-items: center;
+      padding: 16px 20px;
+      border-bottom: 1px solid #f0f0f0;
+      flex-shrink: 0;
+    }
+
+    .back-button {
+      background: none;
+      border: none;
+      font-size: 18px;
+      color: #666;
+      cursor: pointer;
+      padding: 4px;
+      margin-right: 16px;
+    }
+
+    .back-button:hover {
+      color: #333;
+    }
+
+    .logo-container {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+    }
+
+    .logo {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #4A90E2 0%, #357ABD 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+
+    .logo-inner {
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.6);
+      position: relative;
+    }
+
+    .logo-inner-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.8);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .registration-content {
+      padding: 16px 20px;
+      overflow-y: auto;
+      flex-grow: 1;
+    }
+
+    .registration-title {
+      font-size: 22px;
+      font-weight: 600;
+      color: #333;
+      text-align: center;
+      margin-bottom: 6px;
+    }
+
+    .registration-subtitle {
+      font-size: 13px;
+      color: #666;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    .form-group {
+      margin-bottom: 14px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 6px;
+    }
+
+    .form-input {
+      width: 100%;
+      height: 40px;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      padding: 0 12px;
+      font-size: 13px;
+      background-color: #fff;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-input:focus {
+      border-color: #4A90E2;
+    }
+
+    .form-input::placeholder {
+      color: #999;
+    }
+
+    .form-select {
+      width: 100%;
+      height: 40px;
+      border: 1px solid #e1e4e8;
+      border-radius: 6px;
+      padding: 0 12px;
+      font-size: 13px;
+      background-color: #fff;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+      background-position: right 8px center;
+      background-repeat: no-repeat;
+      background-size: 16px;
+    }
+
+    .form-select:focus {
+      border-color: #4A90E2;
+    }
+
+    .upload-area {
+      border: 2px dashed #d1d5db;
+      border-radius: 8px;
+      padding: 20px 12px;
+      text-align: center;
+      background-color: #fafbfc;
+      cursor: pointer;
+      position: relative;
+      transition: border-color 0.2s ease;
+      margin-bottom: 12px;
+    }
+
+    .upload-area:hover {
+      border-color: #4A90E2;
+      background-color: #f8f9ff;
+    }
+
+    .upload-icon {
+      font-size: 28px;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .upload-text {
+      font-size: 13px;
+      color: #333;
+      margin-bottom: 4px;
+      font-weight: 500;
+    }
+
+    .upload-subtext {
+      font-size: 11px;
+      color: #666;
+    }
+
+    .file-input {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    .file-selected {
+      margin-top: 6px;
+      font-size: 11px;
+      color: #4A90E2;
+      font-weight: 500;
+    }
+
+    .submit-button {
+      width: 100%;
+      height: 44px;
+      background: linear-gradient(90deg, #4A90E2 0%, #50C878 100%);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 16px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .submit-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(74, 144, 226, 0.3);
+    }
+
+    .submit-button:active {
+      transform: translateY(0);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 480px) {
+      .registration-card {
+        max-width: 100%;
+      }
+      
+      .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      
+      .registration-content {
+        padding: 14px 16px;
+      }
+    }
