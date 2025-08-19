@@ -20,11 +20,10 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-card">
-       <Link to='/'>
-       <button className="back-arrow" onClick={handleBackClick}>
+      <Link to='/'>
+      <button className="back-arrow" onClick={handleBackClick}>
           ←
-        </button>
-       </Link> 
+        </button></Link>
         
         <div className="login-header">
           <h1 className="login-title">Welcome Back</h1>
@@ -63,7 +62,7 @@ const Login = () => {
         </form>
         
         <div className="register-link">
-          Don't have an account? <a href="#register">Register here</a>
+          Don't have an account? <Link to='/studentregistration'>Register here</Link>
         </div>
       </div>
     </div>

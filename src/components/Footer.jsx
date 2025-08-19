@@ -8,7 +8,7 @@ export default function Footer() {
           <p className="footer-subtitle">
             Empowering Students to bridge the gap between school and employment
           </p>
-          <p className="footer-copyright">© 2024 Job Portal. All rights reserved</p>
+          <p className="footer-copyright">© 2025 Job Portal. All rights reserved</p>
         </div>
       </footer>
   )

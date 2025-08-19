@@ -2,20 +2,17 @@ import React from 'react';
 import './HomePage.css';
 import Footer from '../components/Footer';
 import { Link } from 'react-router-dom';
-import heroImage from '../images/hero.png';
 
 const HomePage = () => {
   return (
     <div className="homepage">
-     
-     
       {/* Hero Section */}
       <section className="hero">
         <div className="hero-content">
           <div className="hero-text">
             <h1 className="hero-title">
               Bridge the Gap Between<br />
-              <span className="text-blue">School</span ><span className='test-violate'> &</span>  <span className="text-teal">Career</span>
+              <span className="text-blue">School</span> <span className="text-violate">&</span> <span className="text-teal">Career</span>
             </h1>
             <p className="hero-subtitle">
               Find meaningful job opportunities while waiting for O/L and A/L results.<br />
@@ -41,17 +38,11 @@ const HomePage = () => {
               <Link to="/studentregistration">
                 <button className="btn-primary">Get Started Now →</button>
               </Link>
-
               <Link to="/login">
                 <button className="btn-secondary">Already a Member? Login</button>
               </Link>
             </div>
           </div>
-
-          <div className="hero-image">
-            <img src={heroImage} alt="Hero" className="hero-img" />
-          </div>
-
         </div>
       </section>
 
@@ -69,7 +60,7 @@ const HomePage = () => {
               <div className="stat-label">Jobs Posted</div>
             </div>
             <div className="stat-item">
-              <div className="stat-number orange">92%</div>
+              <div className="stat-number purple">92%</div>
               <div className="stat-label">Success Rate</div>
             </div>
             <div className="stat-item">
@@ -92,9 +83,7 @@ const HomePage = () => {
           <div className="features-grid">
             <div className="feature-card">
               <div className="feature-icon-wrapper">
-                <div className="feature-icon blue-bg">
                   <span>🔍</span>
-                </div>
               </div>
               <h3 className="feature-title">Verified Job Matching</h3>
               <p className="feature-description">
@@ -106,9 +95,7 @@ const HomePage = () => {
 
             <div className="feature-card">
               <div className="feature-icon-wrapper">
-                <div className="feature-icon green-bg">
                   <span>💼</span>
-                </div>
               </div>
               <h3 className="feature-title">Skill Development</h3>
               <p className="feature-description">
@@ -120,9 +107,7 @@ const HomePage = () => {
 
             <div className="feature-card">
               <div className="feature-icon-wrapper">
-                <div className="feature-icon blue-bg">
                   <span>🎓</span>
-                </div>
               </div>
               <h3 className="feature-title">Personalized Career Tools</h3>
               <p className="feature-description">
@@ -134,9 +119,7 @@ const HomePage = () => {
 
             <div className="feature-card">
               <div className="feature-icon-wrapper">
-                <div className="feature-icon green-bg">
                   <span>🎯</span>
-                </div>
               </div>
               <h3 className="feature-title">Group-Based Filtering</h3>
               <p className="feature-description">
@@ -148,9 +131,7 @@ const HomePage = () => {
 
             <div className="feature-card">
               <div className="feature-icon-wrapper">
-                <div className="feature-icon blue-bg">
                   <span>📝</span>
-                </div>
               </div>
               <h3 className="feature-title">Apply in One Click</h3>
               <p className="feature-description">
@@ -162,15 +143,13 @@ const HomePage = () => {
 
             <div className="feature-card">
               <div className="feature-icon-wrapper">
-                <div className="feature-icon green-bg">
                   <span>📊</span>
-                </div>
               </div>
               <h3 className="feature-title">Track & Connect</h3>
               <p className="feature-description">
                 Keep track of your applications<br />
-                and executive directly to<br />
-                hiring.
+                and connect directly to<br />
+                hiring managers.
               </p>
             </div>
           </div>
@@ -185,15 +164,14 @@ const HomePage = () => {
             Join thousands of Sri Lankan students who have already taken the first step<br />
             towards their dream career with Lanka Career Launchpad.
           </p>
-          <Link to= "/choosepathpage">
-               <button className="cta-button">Start Your Journey Now</button>
+          <Link to="/choosepathpage">
+            <button className="cta-button">Start Your Journey Now</button>
           </Link>
         </div>
       </section>
 
       {/* Footer */}
       <Footer />
-      
     </div>
   );
 };
