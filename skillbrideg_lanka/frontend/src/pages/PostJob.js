@@ -11,8 +11,7 @@ const PostJob = () => {
     jobStatus: 'OPEN',
     level: 'JUNIOR',
     durationinmonths: 12,
-    salary: '',
-    recruiterID: 1
+    salary: ''
   });
   const [alert, setAlert] = useState({ type: '', message: '' });
   const [loading, setLoading] = useState(false);
@@ -46,7 +45,7 @@ const PostJob = () => {
         ...formData,
         durationinmonths: parseInt(formData.durationinmonths),
         salary: parseInt(formData.salary),
-        recruiterID: 1
+        recruiterID: user.id
       };
 
       await jobService.createJob(jobData);

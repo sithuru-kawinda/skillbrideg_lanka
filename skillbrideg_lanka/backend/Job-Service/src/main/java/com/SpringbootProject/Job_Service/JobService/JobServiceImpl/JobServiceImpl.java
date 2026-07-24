@@ -27,16 +27,23 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public List<JobDTO> getJobsByLevel(String level) {
-        List<JobEntity> jobs = jobrepo.findByLevel(level);
+        List<JobEntity> jobs = jobrepo.findAll().stream()
+                .filter(job -> job.getLevel().equalsIgnoreCase(level))
+                .collect(Collectors.toList());
         return jobs.stream().map(JobDTOEntityMapper::map).collect(Collectors.toList());
     }
 
     @Override
     public List<JobDTO> getAllJobs(List<String> jobnames, List<String> levels) {
+        List<String> jobnamesLower = jobnames == null ? null :
+                jobnames.stream().map(String::toLowerCase).collect(Collectors.toList());
+        List<String> levelsLower = levels == null ? null :
+                levels.stream().map(String::toLowerCase).collect(Collectors.toList());
+
         List<JobEntity> jobEntities = jobrepo.findAll();
         return jobEntities.stream()
-                .filter(job -> jobnames == null || jobnames.contains(job.getJobName().toLowerCase()))
-                .filter(job -> levels == null || levels.contains(job.getLevel().toLowerCase()))
+                .filter(job -> jobnamesLower == null || jobnamesLower.contains(job.getJobName().toLowerCase()))
+                .filter(job -> levelsLower == null || levelsLower.contains(job.getLevel().toLowerCase()))
                 .map(JobDTOEntityMapper::map)
                 .collect(Collectors.toList());
     }

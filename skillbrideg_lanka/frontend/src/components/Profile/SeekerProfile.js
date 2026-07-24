@@ -76,7 +76,7 @@ const SeekerProfile = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .profile-container {
           max-width: 800px;
           margin: 0 auto;

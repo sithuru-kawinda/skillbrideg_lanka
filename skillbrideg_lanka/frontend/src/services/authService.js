@@ -1,5 +1,6 @@
 import api, { checkAllServices } from './api';
 import { API_ENDPOINTS } from '../utils/constants';
+import { decodeJwtPayload } from '../utils/helpers';
 
 export const authService = {
   async checkServices() {
@@ -31,11 +32,12 @@ export const authService = {
         throw new Error('No authentication token received from server');
       }
       
-      return { 
+      return {
         token,
         user: {
           email: email,
-          role: data.role || 'USER'
+          role: data.role || 'USER',
+          id: data.id ?? null
         }
       };
     } catch (error) {
@@ -62,10 +64,9 @@ export const authService = {
       });
 
       console.log('✅ Registration successful:', response.data);
-      
-      // Auth service returns Long (authId)
-      const authId = response.data;
-      
+
+      const authId = response.data.authId;
+
       return { 
         authId: authId,
         user: {
@@ -85,13 +86,25 @@ export const authService = {
       const token = localStorage.getItem('token');
       if (!token) return null;
 
-      // For demo purposes, return user from localStorage
+      // Demo profile data (company name, phone, etc.) is stored separately
+      // in localStorage and layered on top of the real identity below.
       const demoUser = localStorage.getItem('demoUser');
-      if (demoUser) {
-        return JSON.parse(demoUser);
+      const demoProfile = demoUser ? JSON.parse(demoUser) : {};
+
+      const payload = decodeJwtPayload(token);
+      if (!payload) {
+        // Not a real JWT (or it's unparseable) — nothing to trust but the demo profile.
+        return demoUser ? demoProfile : null;
       }
 
-      return null;
+      const role = Array.isArray(payload.role) ? payload.role[0] : payload.role;
+
+      return {
+        ...demoProfile,
+        email: payload.sub || demoProfile.email,
+        role: (role || demoProfile.role || 'USER').replace(/^ROLE_/, ''),
+        id: payload.id ?? demoProfile.id ?? null
+      };
     } catch (error) {
       console.error('Error getting current user:', error);
       return null;

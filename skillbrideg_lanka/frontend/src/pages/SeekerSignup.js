@@ -16,7 +16,7 @@ const SeekerSignup = () => {
   const [alert, setAlert] = useState({ type: '', message: '' });
   const [loading, setLoading] = useState(false);
   
-  const { register } = useAuth();
+  const { register, login } = useAuth();
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -126,8 +126,8 @@ const SeekerSignup = () => {
 
       const seekerResult = await seekerResponse.json();
       console.log('✅ Seeker service registration successful:', seekerResult);
-      
-      authId = seekerResult.authID || seekerResult.authId;
+
+      authId = seekerResult.seeker?.authID;
 
       // 2. THEN register with Authentication Service (if not handled by seeker service)
       if (!authId) {
@@ -137,16 +137,24 @@ const SeekerSignup = () => {
           password: formData.password,
           role: 'SEEKER'
         });
-        
+
         if (!authResult.success) {
           throw new Error(authResult.message);
         }
-        authId = authResult.authId;
+        authId = authResult.user?.id;
+      } else {
+        // SeekerService already created the Authentication-Service account for
+        // us — log in to get a real JWT and populate AuthContext's session
+        // state (register() above only runs on the other branch).
+        const loginResult = await login(formData.email, formData.password);
+        if (!loginResult.success) {
+          throw new Error(loginResult.message);
+        }
       }
 
       // Store in localStorage for demo
       const seekerProfile = {
-        id: seekerResult.id || Date.now(),
+        id: seekerResult.seeker?.id || Date.now(),
         authID: authId,
         fullName: formData.fullName,
         email: formData.email,
@@ -160,15 +168,17 @@ const SeekerSignup = () => {
       existingSeekers.push(seekerProfile);
       localStorage.setItem('demoSeekers', JSON.stringify(existingSeekers));
       
-      // Store demo user
+      // Store demo profile fields (fullName, phoneNumber, etc.) that the real
+      // JWT doesn't carry. AuthContext.login()/register() above already set
+      // the real token, so this must not touch localStorage.token.
       const demoUser = {
         email: formData.email,
         role: 'SEEKER',
         authId: authId
       };
       localStorage.setItem('demoUser', JSON.stringify(demoUser));
-      localStorage.setItem('token', 'demo-jwt-token-' + Date.now());
-      
+
+
       setAlert({ 
         type: 'success', 
         message: '🎉 Registration completed successfully! Redirecting to your profile...' 
@@ -180,18 +190,13 @@ const SeekerSignup = () => {
 
     } catch (error) {
       console.error('💥 Registration error:', error);
-      
-      // Cleanup: If seeker registration failed but auth might have succeeded
-      if (authId) {
-        try {
-          await fetch(`http://localhost:8086/seekers/cleanup/${formData.email}`, {
-            method: 'DELETE'
-          });
-        } catch (cleanupError) {
-          console.error('Cleanup failed:', cleanupError);
-        }
-      }
-      
+
+      // Note: if the seeker profile save failed after Authentication-Service
+      // already created the account (authId is set here), that auth account
+      // is orphaned — there's no cross-service rollback endpoint to clean it
+      // up. SeekerService now checks for duplicate email/nic before calling
+      // Authentication-Service at all, which avoids the common case.
+
       // Better error messages
       if (error.message === 'EMAIL_ALREADY_EXISTS') {
         setAlert({ 

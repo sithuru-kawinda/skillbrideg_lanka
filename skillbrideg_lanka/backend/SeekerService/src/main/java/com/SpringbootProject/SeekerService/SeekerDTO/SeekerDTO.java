@@ -1,13 +1,32 @@
 package com.SpringbootProject.SeekerService.SeekerDTO;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
+
 public class SeekerDTO {
     private long id;
+
+    @NotBlank
     private String fullName;
+
     private long authID;
+
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
     private String nic;
+
+    @NotBlank
+    @Size(min = 6, message = "Password must be at least 6 characters")
     private String password;
+
+    @NotBlank
     private String phoneNumber;
+
+    @NotBlank
     private String qualification;
 
 

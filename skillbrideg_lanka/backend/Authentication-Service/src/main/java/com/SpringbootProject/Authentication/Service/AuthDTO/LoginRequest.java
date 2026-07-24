@@ -1,6 +1,9 @@
 package com.SpringbootProject.Authentication.Service.AuthDTO;
 
+import jakarta.validation.constraints.NotBlank;
+
 public class LoginRequest {
+    @NotBlank
     private String email;
 
     public String getEmail() {
@@ -19,5 +22,6 @@ public class LoginRequest {
         this.password = password;
     }
 
+    @NotBlank
     private String password;
 }

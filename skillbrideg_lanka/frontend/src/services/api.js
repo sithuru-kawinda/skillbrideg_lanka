@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { API_ENDPOINTS } from '../utils/constants';
 
 // Create axios instance with better error handling
 const api = axios.create({

@@ -51,7 +51,6 @@ public class RecruiterController {
             response.put("location", requestData.get("location"));
             response.put("registrationNumber", requestData.get("registrationNumber"));
             response.put("phoneNumber", requestData.get("phoneNumber"));
-            response.put("authid", System.currentTimeMillis() % 1000000);
             response.put("status", "success");
             response.put("message", "Registration completed successfully");
             
@@ -76,6 +75,19 @@ public class RecruiterController {
         response.put("count", 0);
         response.put("message", "No recruiters in demo mode");
         return response;
+    }
+
+    // Get a single recruiter by id. This service never persists recruiters
+    // (see /register and GET above), so there is nothing to look up — 404 is
+    // the honest answer, and it's what lets Job-Service's own fallback
+    // handling for "recruiter unavailable" actually run instead of being
+    // masked by a false 200 from the catch-all route below.
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getRecruiterById(@PathVariable Long id) {
+        Map<String, String> response = new HashMap<>();
+        response.put("error", "Recruiter not found");
+        response.put("message", "Recruiter Service does not persist recruiters (demo mode)");
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
     }
 
     // Handle OPTIONS requests for CORS

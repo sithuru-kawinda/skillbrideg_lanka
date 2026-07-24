@@ -1,39 +1,57 @@
 package com.SpringbootProject.Job_Service.JobDTO;
 import lombok.*;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
+
 
 @Getter
 @Setter
 public class JobDTO {
     private long jobId;
-    private String jobName;
-    private String jobDescription;
-    private String jobStatus;
-    private int durationinmonths;
-    private long salary;
-    private long recruiterID;
 
-    public long getRecruiterID() {
+    @NotBlank
+    private String jobName;
+
+    @NotBlank
+    private String jobDescription;
+
+    @NotBlank
+    private String jobStatus;
+
+    @NotNull
+    @PositiveOrZero
+    private Integer durationinmonths;
+
+    @NotNull
+    @PositiveOrZero
+    private Long salary;
+
+    @NotNull
+    private Long recruiterID;
+
+    public Long getRecruiterID() {
         return recruiterID;
     }
 
-    public void setRecruiterID(long recruiterID) {
+    public void setRecruiterID(Long recruiterID) {
         this.recruiterID = recruiterID;
     }
 
-    public int getDurationinmonths() {
+    public Integer getDurationinmonths() {
         return durationinmonths;
     }
 
-    public void setDurationinmonths(int durationinmonths) {
+    public void setDurationinmonths(Integer durationinmonths) {
         this.durationinmonths = durationinmonths;
     }
 
-    public long getSalary() {
+    public Long getSalary() {
         return salary;
     }
 
-    public void setSalary(long salary) {
+    public void setSalary(Long salary) {
         this.salary = salary;
     }
 

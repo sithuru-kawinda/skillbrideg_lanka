@@ -33,7 +33,7 @@ public class JWTUtill {
     }
 
     // Generate JWT
-    public String generateToken(Authentication authentication) {
+    public String generateToken(Authentication authentication, Long userId) {
         UserDetails userPrincipal = (UserDetails) authentication.getPrincipal();
 
         List<String> roles = userPrincipal.getAuthorities()
@@ -44,6 +44,7 @@ public class JWTUtill {
         return Jwts.builder()
                 .setSubject(userPrincipal.getUsername())
                 .claim("role", roles)
+                .claim("id", userId)
                 .setIssuedAt(new Date())
                 .setExpiration(new Date(System.currentTimeMillis() + 86400000))
                 .signWith(key, SignatureAlgorithm.HS256)

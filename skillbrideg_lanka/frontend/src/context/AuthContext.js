@@ -38,37 +38,24 @@ export const AuthProvider = ({ children }) => {
   const login = async (email, password) => {
     try {
       console.log('Attempting login with:', { email });
-      const response = await authService.login(email, password);
-      
-      let token, user;
-      
-      if (response.token) {
-        token = response.token;
-        user = {
-          email: email,
-          role: response.role || 'USER'
-        };
-      } else if (response.data) {
-        token = response.data.token;
-        user = response.data.user;
-      }
-      
+      const { token, user } = await authService.login(email, password);
+
       if (!token) {
         throw new Error('No token received from server');
       }
 
       console.log('Login successful, token:', token);
-      
+
       localStorage.setItem('token', token);
       setToken(token);
       setUser(user);
-      
+
       return { success: true };
     } catch (error) {
       console.error('Login error:', error);
-      return { 
-        success: false, 
-        message: error.message || 'Login failed' 
+      return {
+        success: false,
+        message: error.message || 'Login failed'
       };
     }
   };
@@ -76,28 +63,12 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       console.log('Registering user:', userData);
-      const response = await authService.register(userData);
-      
-      console.log('Registration response:', response);
-      
-      let token, user, authId;
-      
-      if (response.token) {
-        token = response.token;
-        user = {
-          email: userData.email,
-          role: userData.role
-        };
-      } else if (typeof response === 'number' || response.authId) {
-        authId = typeof response === 'number' ? response : response.authId;
-        token = 'temp-token-' + Date.now();
-        user = {
-          email: userData.email,
-          role: userData.role,
-          id: authId
-        };
-      }
-      
+      await authService.register(userData);
+
+      // Authentication-Service /register only returns the new authId, not a
+      // JWT, so log in immediately to obtain a real token for this session.
+      const { token, user } = await authService.login(userData.email, userData.password);
+
       if (!token) {
         throw new Error('No token received from server');
       }

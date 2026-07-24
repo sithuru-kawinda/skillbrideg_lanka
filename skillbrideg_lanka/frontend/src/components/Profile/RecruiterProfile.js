@@ -154,7 +154,7 @@ const RecruiterProfile = () => {
       </div>
 
       {/* CSS Styles */}
-      <style jsx>{`
+      <style>{`
         .recruiter-profile {
           max-width: 1000px;
           margin: 0 auto;

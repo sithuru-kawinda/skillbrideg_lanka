@@ -20,10 +20,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.cors().and()
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/job/byall", "/job/all", "/job/{level}", "/job/withRecruiter/**").permitAll()
                 .antMatchers("/job/create").hasRole("RECRUITER")
+                .antMatchers("/job/byall", "/job/all", "/job/{level}", "/job/withRecruiter/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

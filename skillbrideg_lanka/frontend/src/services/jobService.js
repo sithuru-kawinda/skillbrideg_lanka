@@ -21,7 +21,7 @@ export const jobService = {
       
       const data = await response.json();
       console.log('✅ Jobs data received:', data);
-      return data;
+      return data.jobs || [];
     } catch (error) {
       console.error('💥 Error fetching jobs:', error);
       throw new Error(error.message || 'Failed to fetch jobs');
@@ -36,12 +36,13 @@ export const jobService = {
           'Content-Type': 'application/json',
         },
       });
-      
+
       if (!response.ok) {
         throw new Error(`Failed to fetch jobs by level: ${response.status}`);
       }
-      
-      return await response.json();
+
+      const data = await response.json();
+      return data.jobs || [];
     } catch (error) {
       console.error('Error fetching jobs by level:', error);
       throw error;
@@ -101,7 +102,7 @@ export const jobService = {
       
       const data = await response.json();
       console.log('✅ Job created successfully:', data);
-      return data;
+      return data.job;
     } catch (error) {
       console.error('💥 Error creating job:', error);
       throw new Error(error.message || 'Failed to create job');

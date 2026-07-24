@@ -18,7 +18,7 @@ const LoadingSpinner = ({ size = 'medium', text = 'Loading...' }) => {
       ></div>
       {text && <div className="loading-text">{text}</div>}
       
-      <style jsx>{`
+      <style>{`
         .loading-spinner {
           display: flex;
           flex-direction: column;

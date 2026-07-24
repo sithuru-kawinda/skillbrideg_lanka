@@ -148,7 +148,7 @@ const RecruiterSignup = () => {
       // Store in localStorage for demo
       const recruiterProfile = {
         id: recruiterResult.id || Date.now(),
-        authId: authResult.authId,
+        authId: authResult.user?.id,
         companyName: formData.companyName,
         companyEmail: formData.companyEmail,
         location: formData.location,
@@ -156,28 +156,30 @@ const RecruiterSignup = () => {
         phoneNumber: formData.phoneNumber,
         createdAt: new Date().toISOString()
       };
-      
+
       const existingRecruiters = JSON.parse(localStorage.getItem('demoRecruiters')) || [];
       existingRecruiters.push(recruiterProfile);
       localStorage.setItem('demoRecruiters', JSON.stringify(existingRecruiters));
-      
-      // Store demo user
+
+      // Store demo profile fields (companyName, etc.) that the real JWT
+      // doesn't carry. register() above already set the real token via
+      // AuthContext, so this must not touch localStorage.token.
       const demoUser = {
         email: formData.companyEmail,
         role: 'RECRUITER',
-        authId: authResult.authId,
+        authId: authResult.user?.id,
         companyName: formData.companyName
       };
       localStorage.setItem('demoUser', JSON.stringify(demoUser));
-      localStorage.setItem('token', 'demo-jwt-token-' + Date.now());
-      
+
+
       setAlert({ 
         type: 'success', 
         message: '🎉 Registration completed successfully! Redirecting to your dashboard...' 
       });
       
       setTimeout(() => {
-        navigate('/recruiter/dashboard');
+        navigate('/profile');
       }, 2000);
 
     } catch (error) {
@@ -376,7 +378,7 @@ const RecruiterSignup = () => {
         </div>
       </div>
 
-      <style jsx>{`
+      <style>{`
         .backend-status {
           padding: 8px 12px;
           border-radius: 4px;

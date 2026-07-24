@@ -105,26 +105,6 @@ const Navbar = () => {
                         <span className="dropdown-icon">👤</span>
                         My Profile
                       </Link>
-                      {user?.role === 'RECRUITER' && (
-                        <Link 
-                          to="/my-jobs" 
-                          className="dropdown-item"
-                          onClick={closeAllMenus}
-                        >
-                          <span className="dropdown-icon">📋</span>
-                          My Jobs
-                        </Link>
-                      )}
-                      {user?.role === 'SEEKER' && (
-                        <Link 
-                          to="/my-applications" 
-                          className="dropdown-item"
-                          onClick={closeAllMenus}
-                        >
-                          <span className="dropdown-icon">📄</span>
-                          My Applications
-                        </Link>
-                      )}
                       <div className="dropdown-divider"></div>
                       <button 
                         onClick={handleLogout}
@@ -204,7 +184,7 @@ const Navbar = () => {
         </div>
       </nav>
 
-      <style jsx>{`
+      <style>{`
         .navbar {
           background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
           backdrop-filter: blur(10px);
